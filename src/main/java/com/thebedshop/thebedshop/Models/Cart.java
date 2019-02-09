@@ -15,7 +15,7 @@ public class Cart {
     private String cartId;
 
     private String productId;
-    private String name;
+    private String name; // product
     private int quantity;
     private double price;
 

@@ -1,7 +1,6 @@
 package com.thebedshop.thebedshop.Controllers;
 
 import com.thebedshop.thebedshop.Models.Cart;
-import com.thebedshop.thebedshop.Models.Product;
 import com.thebedshop.thebedshop.Repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

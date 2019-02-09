@@ -13,7 +13,7 @@ public class Product {
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String productId;
 
-    private String name;
+    private String name; //product
     private double price;
     private int quantity;
     private String category;
