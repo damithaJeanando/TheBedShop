@@ -1,4 +1,4 @@
-package com.thebedshop.thebedshop;
+package com.thebedshop.thebedshop.Models;
 
 import org.hibernate.annotations.GenericGenerator;
 
