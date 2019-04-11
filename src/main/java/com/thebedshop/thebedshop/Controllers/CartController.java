@@ -5,6 +5,8 @@ import com.thebedshop.thebedshop.Repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(value = "/cart")
 public class CartController {
@@ -25,11 +27,18 @@ public class CartController {
     }
 
     @PostMapping(path = "/new_item")
-    public Cart newCartItem(@RequestBody Cart cart){
-
-        System.out.println(cart.getName() + "is added");
-
-        return  cartRepository.save(cart);
+    public Cart newCartItem(@RequestBody Cart newcart){
+        Optional cartItemOptional = cartRepository.findById(newcart.getCartId());
+        Cart cartItem;
+        if(cartItemOptional.isPresent()){
+            cartItem = (Cart) cartItemOptional.get();
+            int quantity = cartItem.getQuantity();
+            cartItem.setQuantity(quantity + newcart.getQuantity());
+            updateCartItem(cartItem);
+        }else {
+            cartItem = cartRepository.save(newcart);
+        }
+        return  cartItem;
     }
 
     @PutMapping(path = "/update_item")

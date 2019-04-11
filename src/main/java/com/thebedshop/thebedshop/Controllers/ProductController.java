@@ -31,36 +31,17 @@ public class ProductController {
         return  productRepository.save(product);
     }
 
-    @PutMapping(path = "/update_product")
-    public boolean updateProduct(@RequestBody String product_id){
+    @PutMapping
+    public void updateProduct(@RequestBody Product product){
 
-        boolean flag;
-
-        Product product = getProduct(product_id);
-        if(product != null){
             productRepository.save(product);
-            flag = true;
-        }
-        else{
-            flag = false;
-        }
-      return  flag;
     }
 
     @DeleteMapping(path = "/{product_id}")
-    public boolean deleteProduct(@PathVariable String product_id) {
+    public void deleteProduct(@PathVariable String product_id) {
 
-        boolean flag;
 
-        Product product = getProduct(product_id);
-        if(product != null){
-            productRepository.delete(product);
-            flag = true;
-        }
-        else{
-            flag = false;
-        }
-        return  flag;
+        productRepository.deleteById(product_id);
+
     }
-
 }

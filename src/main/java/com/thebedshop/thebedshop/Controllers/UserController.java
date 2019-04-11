@@ -27,15 +27,15 @@ public class UserController {
     @PostMapping(path = "/new_user")
     public User newUser(@RequestBody User user){
 
-        System.out.println(user.getUserName() + "is added");
 
         return  userRepository.save(user);
     }
 
-    @PutMapping(path = "/update_user")
+    @PutMapping
     public void updateUser(@RequestBody User user){
 
-        userRepository.save(user);
+            userRepository.save(user);
+
     }
 
     @DeleteMapping(path = "/{user_id}")
