@@ -1,6 +1,5 @@
 package com.thebedshop.thebedshop.Controllers;
 
-import com.thebedshop.thebedshop.Models.Promotion;
 import com.thebedshop.thebedshop.Models.User;
 import com.thebedshop.thebedshop.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
