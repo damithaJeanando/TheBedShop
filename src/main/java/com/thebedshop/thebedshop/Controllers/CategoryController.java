@@ -3,6 +3,7 @@ package com.thebedshop.thebedshop.Controllers;
 import com.thebedshop.thebedshop.Repositories.CategoryRepository;
 import com.thebedshop.thebedshop.Models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,7 +25,8 @@ public class CategoryController {
         return categoryRepository.findById(category_id).get();
     }
 
-    @PostMapping(path = "/new_category")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping(path = "/admin/new_category")
     public Category newCategory(@RequestBody Category category){
 
         System.out.println(category.getCategoryName() + "is added");
@@ -32,14 +34,16 @@ public class CategoryController {
         return categoryRepository.save(category);
     }
 
-    @PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(path = "/admin")
     public void updateCategory(@RequestBody Category category){
 
 
         categoryRepository.save(category);
     }
 
-    @DeleteMapping(path = "/{category_id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(path = "admin/{category_id}")
     public void deleteCategory(@PathVariable String category_id) {
 
         categoryRepository.deleteById(category_id);

@@ -2,26 +2,85 @@ package com.thebedshop.thebedshop.Models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 public class User {
 
+
     @Id
+    @NotNull
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String userId;
 
-    private String userName;
-    private String password;
-    private String email;
-    private String address;
-    private int teleNumber;
+    public String firstName;
+    public String lastName;
+    public String gender;
+
+
+    @Column(unique = true)
+    @Email
+    public String email;
+
+    public String address;
+    public int contactNumber;
+
+    public String userName;
+    public String password;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "u_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> role;
+
+    public String userImage;
+
+    public User() {
+    }
+
+    public User(User user) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
+        this.userImage = userImage;
+    }
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public void setUserId(String userId) {
@@ -60,11 +119,27 @@ public class User {
         this.address = address;
     }
 
-    public int getTeleNumber() {
-        return teleNumber;
+    public int getContactNumber() {
+        return contactNumber;
     }
 
-    public void setTeleNumber(int teleNumber) {
-        this.teleNumber = teleNumber;
+    public void setContactNumber(int contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public Set<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 }

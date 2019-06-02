@@ -17,7 +17,7 @@ public class Payment {
     private String paymentName;
     private double amount;
     private String userId;
-    private String cartId;
+    private String productId;
 
     public String getPaymentName() {
         return paymentName;
@@ -51,12 +51,12 @@ public class Payment {
         this.userId = userId;
     }
 
-    public String getCartId() {
-        return cartId;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setCartId(String cartId) {
-        this.cartId = cartId;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }
 

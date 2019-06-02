@@ -8,16 +8,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/cart")
+@RequestMapping(value = "user/cart")
 public class CartController {
 
     @Autowired
     private CartRepository cartRepository;
 
-    @GetMapping(path = "/getcart")
+    @GetMapping(path = "/getall")
     public @ResponseBody Iterable<Cart> getCartItems(){
         System.out.println("Get all cart items");
         return cartRepository.findAll();
+    }
+
+    @GetMapping(path = "/userId/{user_Id}")
+    public @ResponseBody Iterable<Cart> getAllCartItemsByUserId(@PathVariable String user_Id){
+        System.out.println("Fetching all cart items");
+
+        return cartRepository.findAllByUid(user_Id);
     }
 
     @GetMapping(path = "/{cart_id}")
@@ -26,19 +33,24 @@ public class CartController {
         return cartRepository.findById(cart_id).get();
     }
 
-    @PostMapping(path = "/new_item")
-    public Cart newCartItem(@RequestBody Cart newcart){
-        Optional cartItemOptional = cartRepository.findById(newcart.getCartId());
+    @PostMapping(path = "/add")
+    public Cart AddNewCartItem(@RequestBody Cart newCart){
+        Optional cartItemOptional = cartRepository.findById(newCart.getCartId());
         Cart cartItem;
         if(cartItemOptional.isPresent()){
             cartItem = (Cart) cartItemOptional.get();
             int quantity = cartItem.getQuantity();
-            cartItem.setQuantity(quantity + newcart.getQuantity());
+            cartItem.setQuantity(quantity + newCart.getQuantity());
             updateCartItem(cartItem);
         }else {
-            cartItem = cartRepository.save(newcart);
+            cartItem = cartRepository.save(newCart);
         }
         return  cartItem;
+    }
+
+    @PostMapping(path = "add/items")
+    public Iterable<Cart> AddItemsToCart(@RequestBody Iterable<Cart> cartItems){
+        return cartRepository.saveAll(cartItems);
     }
 
     @PutMapping(path = "/update_item")
@@ -51,5 +63,12 @@ public class CartController {
     public void deleteCartItem(@PathVariable String cart_id) {
 
         cartRepository.deleteById(cart_id);
+    }
+
+    @DeleteMapping("/delete")
+    public Iterable<Cart> deleteCartItems(@RequestBody Iterable<Cart> cartItems) {
+
+        cartRepository.deleteAll(cartItems);
+        return cartRepository.findAll();
     }
 }
