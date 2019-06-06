@@ -25,7 +25,7 @@ public class ProductController {
         return productRepository.findById(product_id).get();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(path = "/auth/add")
     public Product newProduct(@RequestBody Product product){
 

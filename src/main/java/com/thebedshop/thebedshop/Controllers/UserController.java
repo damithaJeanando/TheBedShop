@@ -52,7 +52,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping(path = "/{user_id}")
+    @GetMapping(path = "/auth/{user_id}")
     public User getUser(@PathVariable String user_id){
 
         return userRepository.findById(user_id).get();
