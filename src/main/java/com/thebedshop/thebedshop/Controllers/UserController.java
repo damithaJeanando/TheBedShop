@@ -1,5 +1,6 @@
 package com.thebedshop.thebedshop.Controllers;
 
+import com.thebedshop.thebedshop.Models.Auth;
 import com.thebedshop.thebedshop.Models.Role;
 import com.thebedshop.thebedshop.Models.User;
 import com.thebedshop.thebedshop.Models.UserForm;
@@ -45,7 +46,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/user/all")
+    @GetMapping("/auth/all")
     public @ResponseBody Iterable<User> getAllUsers(){
         System.out.println("Get all users");
         return userRepository.findAll();
@@ -57,6 +58,21 @@ public class UserController {
         return userRepository.findById(user_id).get();
     }
 
+    @PostMapping("/public/authenticate")
+    public User findByEmail (@RequestBody Auth auth){
+        User user;
+        if(userRepository.existsByEmail(auth.getEmail())){
+            if(userRepository.findUserByEmail(auth.getEmail()).get().getPassword().equals(auth.getPassword())){
+                user = userRepository.findUserByEmail(auth.getEmail()).get();
+            }else {
+                user = null;
+            }
+        }else{
+            user = null;
+        }
+
+        return user;
+    }
     @GetMapping("check/{email}")
     public Boolean isEmailExist(@PathVariable String email){
         System.out.println("Checking email is available");
@@ -64,14 +80,20 @@ public class UserController {
         return userRepository.existsByEmail(email);
     }
 
-    @PostMapping(path = "/new_user")
-    public User newUser(@RequestBody User user){
-
-
-        return  userRepository.save(user);
+    @GetMapping("/email/{email}")
+    public User getUserByEmail (@PathVariable String email){
+        System.out.println("Fetching all products");
+        return userRepository.findUserByEmail(email).get();
     }
 
-    @PutMapping
+//    @PostMapping(path = "/new_user")
+//    public User newUser(@RequestBody User user){
+//
+//
+//        return  userRepository.save(user);
+//    }
+
+    @PutMapping(path = "/auth")
     public void updateUser(@RequestBody User user){
 
             userRepository.save(user);

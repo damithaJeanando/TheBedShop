@@ -13,7 +13,7 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @GetMapping(path = "/getall")
+    @GetMapping(path = "/public/getall")
     public @ResponseBody Iterable<Category> getCategories(){
 
         return categoryRepository.findAll();
@@ -26,7 +26,7 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping(path = "/admin/new_category")
+    @PostMapping(path = "/auth/new_category")
     public Category newCategory(@RequestBody Category category){
 
         System.out.println(category.getCategoryName() + "is added");
@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @PutMapping(path = "/admin")
+    @PutMapping(path = "/auth")
     public void updateCategory(@RequestBody Category category){
 
 
@@ -43,7 +43,7 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @DeleteMapping(path = "admin/{category_id}")
+    @DeleteMapping(path = "/auth/{category_id}")
     public void deleteCategory(@PathVariable String category_id) {
 
         categoryRepository.deleteById(category_id);

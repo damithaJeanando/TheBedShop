@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = "user/cart")
+@RequestMapping(value = "/auth/cart")
 public class CartController {
 
     @Autowired
@@ -24,7 +26,7 @@ public class CartController {
     public @ResponseBody Iterable<Cart> getAllCartItemsByUserId(@PathVariable String user_Id){
         System.out.println("Fetching all cart items");
 
-        return cartRepository.findAllByUid(user_Id);
+        return cartRepository.findAllByUserEmail(user_Id);
     }
 
     @GetMapping(path = "/{cart_id}")
@@ -35,17 +37,23 @@ public class CartController {
 
     @PostMapping(path = "/add")
     public Cart AddNewCartItem(@RequestBody Cart newCart){
-        Optional cartItemOptional = cartRepository.findById(newCart.getCartId());
-        Cart cartItem;
-        if(cartItemOptional.isPresent()){
-            cartItem = (Cart) cartItemOptional.get();
-            int quantity = cartItem.getQuantity();
-            cartItem.setQuantity(quantity + newCart.getQuantity());
-            updateCartItem(cartItem);
-        }else {
-            cartItem = cartRepository.save(newCart);
+
+        Cart cart = null;
+        for(Cart cartItem : getCartItems()){
+            if(cartItem.getProduct().getProductId().equals(newCart.getProduct().getProductId()) && cartItem.getUserEmail().equals(newCart.getUserEmail())){
+                cart = cartItem;
+            }
         }
-        return  cartItem;
+
+        if(cart == null){
+            cart = newCart;
+        }else {
+            int qty = cart.getQuantity() + newCart.getQuantity();
+            cart.setQuantity(qty);
+        }
+        cartRepository.save(cart);
+        System.out.println(cart.getCartId() + " item added");
+        return  cart;
     }
 
     @PostMapping(path = "add/items")

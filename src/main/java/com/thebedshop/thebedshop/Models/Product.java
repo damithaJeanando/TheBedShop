@@ -16,11 +16,11 @@ public class Product {
     private double price;
     private int quantity;
 
-    @Column(name = "p_category")
-    private String category;
+    @Column(name = "product_category")
+    private String categoryId;
 
     private String description;
-    private String productPrice;
+
     private String image;
 
     @ManyToOne
@@ -62,12 +62,12 @@ public class Product {
         this.price = price;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getDescription() {
@@ -78,13 +78,7 @@ public class Product {
         this.description = description;
     }
 
-    public String getProductPrice() {
-        return productPrice;
-    }
 
-    public void setProductPrice(String productPrice) {
-        this.productPrice = productPrice;
-    }
 
     public String getImage() {
         return image;
