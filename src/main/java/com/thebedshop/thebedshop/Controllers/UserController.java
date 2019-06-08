@@ -2,8 +2,8 @@ package com.thebedshop.thebedshop.Controllers;
 
 import com.thebedshop.thebedshop.Models.Auth;
 import com.thebedshop.thebedshop.Models.Role;
-import com.thebedshop.thebedshop.Models.User;
 import com.thebedshop.thebedshop.Models.UserForm;
+import com.thebedshop.thebedshop.Models.User;
 import com.thebedshop.thebedshop.Repositories.RoleRepository;
 import com.thebedshop.thebedshop.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Set;
+
 
 @RestController
 @RequestMapping(value = "/users")
@@ -45,7 +46,7 @@ public class UserController {
         return newUser;
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+   // @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/auth/all")
     public @ResponseBody Iterable<User> getAllUsers(){
         System.out.println("Get all users");
@@ -96,7 +97,7 @@ public class UserController {
     @PutMapping(path = "/auth")
     public void updateUser(@RequestBody User user){
 
-            userRepository.save(user);
+        userRepository.save(user);
 
     }
 

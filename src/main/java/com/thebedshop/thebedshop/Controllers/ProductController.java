@@ -39,14 +39,14 @@ public class ProductController {
         return productRepository.findAllByCategoryId(category_id);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+   // @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(path = "/auth")
     public void updateProduct(@RequestBody Product product){
 
             productRepository.save(product);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+  //  @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/auth/{product_id}")
     public void deleteProduct(@PathVariable String product_id) {
 

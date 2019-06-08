@@ -26,9 +26,9 @@ public class CustomOrdersController {
         return (List<CustomOrders>) customOrdersRepository.findAll();
     }
 
-    @GetMapping(path = "/user/{userId}")
-    public Iterable<CustomOrders> findOrdersByUserId(@PathVariable String userId){
-        return customOrdersRepository.findAllByUserId(userId);
+    @GetMapping(path = "/user/{userEmail}")
+    public Iterable<CustomOrders> findOrdersByUserEmail(@PathVariable String userEmail){
+        return customOrdersRepository.findAllByUserEmail(userEmail);
     }
 
     @PostMapping(path = "/add")

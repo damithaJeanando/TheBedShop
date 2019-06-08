@@ -25,7 +25,7 @@ public class CategoryController {
         return categoryRepository.findById(category_id).get();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+   // @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(path = "/auth/new_category")
     public Category newCategory(@RequestBody Category category){
 
@@ -34,7 +34,7 @@ public class CategoryController {
         return categoryRepository.save(category);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+   // @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(path = "/auth")
     public void updateCategory(@RequestBody Category category){
 
@@ -42,7 +42,7 @@ public class CategoryController {
         categoryRepository.save(category);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+   // @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(path = "/auth/{category_id}")
     public void deleteCategory(@PathVariable String category_id) {
 

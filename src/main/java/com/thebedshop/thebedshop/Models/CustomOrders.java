@@ -16,7 +16,7 @@ public class CustomOrders {
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String orderId;
 
-    private int userId;
+    private String userEmail;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -36,12 +36,12 @@ public class CustomOrders {
         this.orderId = orderId;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public Timestamp getOrderDate() {

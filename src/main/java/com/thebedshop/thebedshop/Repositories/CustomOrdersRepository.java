@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CustomOrdersRepository extends CrudRepository<CustomOrders, String> {
 
-    Iterable<CustomOrders> findAllByUserId(String userId);
+    Iterable<CustomOrders> findAllByUserEmail(String userEmail);
 }

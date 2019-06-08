@@ -1,9 +1,8 @@
 package com.thebedshop.thebedshop.Services;
 
-
-import com.thebedshop.thebedshop.Repositories.UserRepository;
 import com.thebedshop.thebedshop.Models.CustomUser;
 import com.thebedshop.thebedshop.Models.User;
+import com.thebedshop.thebedshop.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,16 +16,14 @@ public class CustomUserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> optionalUsers=userRepository.findByEmail(email);
 
-        Optional<User> optionalUser = userRepository.findUserByEmail(email);
-
-        optionalUser.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-
-        return optionalUser
-                .map(CustomUser::new).get();
-
+        optionalUsers
+                .orElseThrow(()-> new UsernameNotFoundException("Username Not Found"));
+        return optionalUsers
+                .map( CustomUser::new).get();
     }
 }
+

@@ -3,6 +3,7 @@ package com.thebedshop.thebedshop.Controllers;
 import com.thebedshop.thebedshop.Models.Cart;
 import com.thebedshop.thebedshop.Repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -73,10 +74,18 @@ public class CartController {
         cartRepository.deleteById(cart_id);
     }
 
-    @DeleteMapping("/delete")
-    public Iterable<Cart> deleteCartItems(@RequestBody Iterable<Cart> cartItems) {
+//    @DeleteMapping("/delete")
+//    public Iterable<Cart> deleteCartItems(@RequestBody Iterable<Cart> cartItems) {
+//
+//        cartRepository.deleteAll(cartItems);
+//        return cartRepository.findAll();
+//    }
 
-        cartRepository.deleteAll(cartItems);
-        return cartRepository.findAll();
+    @Transactional
+    @DeleteMapping("/user/{email}")
+    public void deleteCartItems(@PathVariable String email ) {
+
+        cartRepository.deleteAllByUserEmail(email);
+
     }
 }

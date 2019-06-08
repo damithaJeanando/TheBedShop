@@ -4,15 +4,12 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
 public class User {
 
-
     @Id
-    @NotNull
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String userId;
@@ -141,4 +138,5 @@ public class User {
     public void setUserImage(String userImage) {
         this.userImage = userImage;
     }
+
 }
