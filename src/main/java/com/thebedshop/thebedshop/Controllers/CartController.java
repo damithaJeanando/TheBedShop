@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -49,8 +47,8 @@ public class CartController {
         if(cart == null){
             cart = newCart;
         }else {
-            int qty = cart.getQuantity() + newCart.getQuantity();
-            cart.setQuantity(qty);
+            int qty = cart.getAmount() + newCart.getAmount();
+            cart.setAmount(qty);
         }
         cartRepository.save(cart);
         System.out.println(cart.getCartId() + " item added");

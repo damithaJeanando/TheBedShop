@@ -1,0 +1,7 @@
+@startuml
+User -> Database: Authentication Request
+Database--> User: Authentication Response
+
+ -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml

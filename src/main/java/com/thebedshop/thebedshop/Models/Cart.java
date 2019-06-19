@@ -12,7 +12,7 @@ public class Cart {
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String cartId;
 
-    private int quantity;
+    private int amount;
 
     private String userEmail;
 
@@ -29,12 +29,12 @@ public class Cart {
         this.cartId = cartId;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public String getUserEmail() {
